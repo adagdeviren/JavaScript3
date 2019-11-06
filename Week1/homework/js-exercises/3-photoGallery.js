@@ -22,7 +22,8 @@ xhr.onload = function () {
         const image = document.createElement('img');
         document.body.appendChild(image);
         image.setAttribute("id",'xhr');
-        document.getElementById("xhr").setAttribute("src", xhr.responseURL);
+        //document.getElementById("xhr").setAttribute("src", xhr.responseURL);
+        image.setAttribute("src", xhr.responseURL);
     } else {
         console.log('Error! server response status:', xhr.status);
     }
@@ -42,7 +43,8 @@ axios
     const image = document.createElement('img');
         document.body.appendChild(image);
         image.setAttribute("id",'axios');
-        document.getElementById("axios").setAttribute("src", response.request.responseURL);
+        //document.getElementById("axios").setAttribute("src", response.request.responseURL);
+        image.setAttribute("src", response.request.responseURL);
 } )
 .catch( function(error) {
     console.log( error);
