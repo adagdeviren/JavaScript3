@@ -36,14 +36,36 @@ This application does 2 things:
     return elem;
   }
 
+  //
+  //
+  //
+
   function renderRepoDetails(repo, ul) {
-    createAndAppend('li', ul, { text: repo.name });
+    const li = createAndAppend('li', ul, { class: "list-item" });
+    // adding titles and contents
+    createAndAppend('p', li, { text: "Repository:", class: 'title' });
+    createAndAppend('a', li, { text: repo.name, href:repo.html_url, target:'_blank' });
+    createAndAppend('p', li, { text: "Description:", class: 'title' });
+    createAndAppend('span', li, { text: repo.description });
+    createAndAppend('p', li, { text: "Forks:", class: 'title' });
+    createAndAppend('span', li, { text: repo.forks });
+    createAndAppend('p', li, { text: "Updated:", class: 'title' });
+    createAndAppend('span', li, { text: repo.updated_at });
+
+
   }
 
+  //
+  //
+  //
+  
   function main(url) {
     fetchJSON(url, (err, repos) => {
       const root = document.getElementById('root');
       if (err) {
+        createAndAppend('div',root, {
+          text:"HYF REPOSITORIES",
+          class:'header'})
         createAndAppend('div', root, {
           text: err.message,
           class: 'alert-error',
@@ -51,11 +73,17 @@ This application does 2 things:
         return;
       }
       const ul = createAndAppend('ul', root);
-      repos.forEach(repo => renderRepoDetails(repo, ul));
+      // adding header
+      const li = createAndAppend('li', ul);
+      createAndAppend('h4', li, { text: "HYF REPOSITORIES", class: 'header' });
+
+      repos
+        .sort((repo1, repo2) => repo1.name.localeCompare(repo2.name, 'en', { ignorePunctuation: true }))
+        .forEach(repo => renderRepoDetails(repo, ul));
     });
   }
 
   const HYF_REPOS_URL =
-    'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
+    'https://api.github.com/orgs/HackYourFuture/repos?per_page=10';
   window.onload = () => main(HYF_REPOS_URL);
 }
