@@ -19,8 +19,17 @@
      * @param {Object} repo A repository object.
      */
     render(repo) {
-      // TODO: replace this comment and the console.log with your own code
-      console.log('RepoView', repo);
+      // clearing previous content
+      this.container.innerHTML = ' ';
+      createAndAppend('h4', this.container, { text: 'Repo Details' });
+      createAndAppend('a', this.container, { text: repo.name, href: repo.html_url, target: '_blank' });
+      createAndAppend('p', this.container, { text: "Description:", class: 'title' });
+      createAndAppend('span', this.container, { text: repo.description });
+      createAndAppend('p', this.container, { text: "Forks:", class: 'title' });
+      createAndAppend('span', this.container, { text: repo.forks });
+      createAndAppend('p', this.container, { text: "Updated:", class: 'title' });
+      createAndAppend('span', this.container, { text: repo.updated_at });
+
     }
   }
 
